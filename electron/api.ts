@@ -392,7 +392,7 @@ export class Api {
         console.log('... getting mpv player path', mpvPlayerPath);
         return new mpvAPI(
             { ...(mpvPlayerPath ? { binary: mpvPlayerPath } : {}) },
-            ['--autofit=70%']
+            ['--autofit=70%','--loop-playlist=force']
         );
     }
 
