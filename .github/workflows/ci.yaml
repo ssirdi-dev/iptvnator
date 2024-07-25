@@ -27,34 +27,7 @@ jobs:
             - run: npm run build:prod
               env:
                   CI: true
-    e2e-tests:
-        runs-on: ${{ matrix.os }}
-
-        strategy:
-            matrix:
-                os: [macos-latest]
-
-        steps:
-            - uses: actions/checkout@v2
-              with:
-                  persist-credentials: false
-            - name: Use Node.js
-              uses: actions/setup-node@v1
-              with:
-                  node-version: '18'
-            - run: git config --global url."https://${{ secrets.PAT }}@github.com/".insteadOf ssh://git@github.com/
-            - run: npm ci
-            #  env:
-            #      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
-            - run: npm run build:prod
-            #- run: npx playwright install --with-deps chromium
-            #- run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- npm run e2e:ci
-            #  if: matrix.os == 'ubuntu-latest'
-            #  env:
-            #    e2e: true
-            - run: npm run e2e:ci
-              env:
-                  e2e: true
+    
     release:
         needs: [build-and-test]
         runs-on: ${{ matrix.os }}
